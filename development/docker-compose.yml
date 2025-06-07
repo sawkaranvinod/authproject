@@ -1,0 +1,211 @@
+version: '3.8'
+
+services:
+  redpanda:
+    image: docker.redpanda.com/redpandadata/redpanda:latest
+    container_name: redpanda
+    ports:
+      - "9092:9092"   # Kafka API
+      - "9644:9644"   # Admin HTTP API
+    command:
+      - redpanda
+      - start
+      - --overprovisioned
+      - --smp
+      - "1"
+      - --memory
+      - "1G"
+      - --reserve-memory
+      - "0M"
+      - --node-id
+      - "0"
+      - --check=false
+      - --kafka-addr
+      - "PLAINTEXT://0.0.0.0:9092"
+      - --advertise-kafka-addr
+      - "PLAINTEXT://localhost:9092"
+    volumes:
+      - redpanda_data:/var/lib/redpanda/data
+
+  redisFaultTolaranceForgotPasswordservices:
+    image: redis/redis-stack:latest
+    container_name: redis-node-1
+    ports:
+      - "7001:6379"
+      - "17001:8001"
+    volumes:
+      - redis_fault_tolerance_forgot_password_data:/data
+
+  redisFaultTolaranceLoginservices:
+    image: redis/redis-stack:latest
+    container_name: redis-node-2
+    ports:
+      - "7002:6379"
+      - "17002:8001"
+    volumes:
+      - redis_fault_tolerance_login_data:/data
+
+  redisFaultTolaranceRegisterservices:
+    image: redis/redis-stack:latest
+    container_name: redis-node-3
+    ports:
+      - "7003:6379"
+      - "17003:8001"
+    volumes:
+      - redis_fault_tolerance_register_data:/data
+
+  redisFaultTolarancePaymentservices:
+    image: redis/redis-stack:latest
+    container_name: redis-node-4
+    ports:
+      - "7004:6379"
+      - "17004:8001"
+    volumes:
+      - redis_fault_tolerance_payment_data:/data
+
+  redisFaultTolaranceRecoveryservices:
+    image: redis/redis-stack:latest
+    container_name: redis-node-5
+    ports:
+      - "7005:6379"
+      - "17005:8001"
+    volumes:
+      - redis_fault_tolerance_recovery_data:/data
+
+  redisFaultTolaranceSecurityservices:
+    image: redis/redis-stack:latest
+    container_name: redis-node-6
+    ports:
+      - "7006:6379"
+      - "17006:8001"
+    volumes:
+      - redis_fault_tolerance_security_data:/data
+
+  redisFaultTolaranceUpdateContactservices:
+    image: redis/redis-stack:latest
+    container_name: redis-node-7
+    ports:
+      - "7007:6379"
+      - "17007:8001"
+    volumes:
+      - redis_fault_tolerance_update_contact_data:/data
+
+  redisFaultTolaranceUpdatePasswordservices:
+    image: redis/redis-stack:latest
+    container_name: redis-node-8
+    ports:
+      - "7008:6379"
+      - "17008:8001"
+    volumes:
+      - redis_fault_tolerance_update_password_data:/data
+
+  redisFaultTolaranceUpdatePersonalDetailsservices:
+    image: redis/redis-stack:latest
+    container_name: redis-node-9
+    ports:
+      - "7009:6379"
+      - "17009:8001"
+    volumes:
+      - redis_fault_tolerance_update_personal_details_data:/data
+
+  redisForgotPasswordservices:
+    image: redis/redis-stack:latest
+    container_name: redis-node-10
+    ports:
+      - "7010:6379"
+      - "17010:8001"
+    volumes:
+      - redis_forgot_password_data:/data
+
+  redisLoginservices:
+    image: redis/redis-stack:latest
+    container_name: redis-node-11
+    ports:
+      - "7011:6379"
+      - "17011:8001"
+    volumes:
+      - redis_login_data:/data
+
+  redisRegisterservices:
+    image: redis/redis-stack:latest
+    container_name: redis-node-12
+    ports:
+      - "7012:6379"
+      - "17012:8001"
+    volumes:
+      - redis_register_data:/data
+
+  redisPaymentservices:
+    image: redis/redis-stack:latest
+    container_name: redis-node-13
+    ports:
+      - "7013:6379"
+      - "17013:8001"
+    volumes:
+      - redis_payment_data:/data
+
+  redisRecoveryservices:
+    image: redis/redis-stack:latest
+    container_name: redis-node-14
+    ports:
+      - "7014:6379"
+      - "17014:8001"
+    volumes:
+      - redis_recovery_data:/data
+
+  redisSecurityservices:
+    image: redis/redis-stack:latest
+    container_name: redis-node-15
+    ports:
+      - "7015:6379"
+      - "17015:8001"
+    volumes:
+      - redis_security_data:/data
+
+  redisUpdateContactservices:
+    image: redis/redis-stack:latest
+    container_name: redis-node-16
+    ports:
+      - "7016:6379"
+      - "17016:8001"
+    volumes:
+      - redis_update_contact_data:/data
+
+  redisUpdatePasswordservices:
+    image: redis/redis-stack:latest
+    container_name: redis-node-17
+    ports:
+      - "7017:6379"
+      - "17017:8001"
+    volumes:
+      - redis_update_password_data:/data
+
+  redisUpdatePersonalDetailsservices:
+    image: redis/redis-stack:latest
+    container_name: redis-node-18
+    ports:
+      - "7018:6379"
+      - "17018:8001"
+    volumes:
+      - redis_update_personal_details_data:/data
+
+volumes:
+  redpanda_data:
+  redis_fault_tolerance_forgot_password_data:
+  redis_fault_tolerance_login_data:
+  redis_fault_tolerance_register_data:
+  redis_fault_tolerance_payment_data:
+  redis_fault_tolerance_recovery_data:
+  redis_fault_tolerance_security_data:
+  redis_fault_tolerance_update_contact_data:
+  redis_fault_tolerance_update_password_data:
+  redis_fault_tolerance_update_personal_details_data:
+  redis_forgot_password_data:
+  redis_login_data:
+  redis_register_data:
+  redis_payment_data:
+  redis_recovery_data:
+  redis_security_data:
+  redis_update_contact_data:
+  redis_update_password_data:
+  redis_update_personal_details_data:
