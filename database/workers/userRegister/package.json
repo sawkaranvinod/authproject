@@ -1,0 +1,17 @@
+{
+  "name": "userregister",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "fastify": "^5.3.3",
+    "ioredis": "^5.6.1",
+    "mongoose": "^8.15.1"
+  }
+}
