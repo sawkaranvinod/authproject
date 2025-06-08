@@ -101,7 +101,13 @@ const userSchema = new mongoose.Schema(
         context:{
             type:[String],
             lowercase:true,
+            default:[]
         },
+        email:{
+            type:String,
+            required:true,
+            unique:true,
+        }
     },
     {
         timestamps:true,

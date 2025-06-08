@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+service registerServices {
+    rpc checkUserExist (userId) returns (isExist);
+    rpc register (userData) returns (registerAcknowledgement);
+};
+
+
+message userId {
+    string userId = 1;
+};
+
+message isExist {
+    bool isExist = 1;
+    string publicKey = 2;
+    string authTag = 3;
+    string iv = 4;
+};
+
+message userData {
+    string userId = 1;
+    string hashedPassword = 2;
+    string hashedName = 3;
+    string email = 4;
+    string hashedMotherName = 5;
+    string hashedFatherName = 6;
+    string hashedDOB = 7;
+    string hashedIpAddress = 8;
+    number longitude = 9;
+    number latitude = 10;
+    string browser = 11;
+    string deviceName = 12;
+    string salt = 13;
+    string iv = 14;
+}
+
+message registerAcknoledgement {
+    string message = 1;
+}

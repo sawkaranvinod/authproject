@@ -1,18 +1,12 @@
 import mongoose from "mongoose";
 
 
-
-const passwordHashingDetailSchema = mongoose.Schema(
+const personalDetailHashingDetailSchema = mongoose.Schema(
     {
         method:{
             type:String,
             required:true,
             trim:true,
-        },
-        byte:{
-            type:Number,
-            required:true,
-            enum:[32,64],
         },
         iv:{
             type:String,
@@ -30,11 +24,6 @@ const passwordHashingDetailSchema = mongoose.Schema(
             trim:true,
         },
         salt:{
-            type:String,
-            required:true,
-            trim:true,
-        },
-        authTag:{
             type:String,
             required:true,
             trim:true,
@@ -63,4 +52,4 @@ const passwordHashingDetailSchema = mongoose.Schema(
 );
 
 
-export const PasswordHashingDetail = mongoose.model("PasswordHashingDetail",passwordHashingDetailSchema);
+export const PersonalDetailHashingDetail = mongoose.model("PersonalDetailHashingDetail",personalDetailHashingDetailSchema)
