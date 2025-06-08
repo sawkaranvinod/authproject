@@ -33,6 +33,18 @@ const loginDetailSchema = mongoose.Schema(
             trim:true,
             lowercase:true,
         },
+        updatedUserProfile:{
+            type: {
+                updated:{
+                    type:Boolean,
+                    default:false,
+                },
+                updatedService:{
+                    type:String,
+                    lowercase:true
+                }
+            }
+        }
     },
     {
         timestamps:true,

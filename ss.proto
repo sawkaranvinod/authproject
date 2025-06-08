@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package bookstore;
+
+// Bookstore Service
+service Bookstore {
+  rpc AddBook (Book) returns (BookResponse);
+  rpc GetBook (BookRequest) returns (Book);
+  rpc ListBooks (Empty) returns (BookList);
+}
+
+// Message representing a Book
+message Book {
+  string id = 1;
+  string title = 2;
+  string author = 3;
+}
+
+// Request to fetch a book
+message BookRequest {
+  string id = 1;
+}
+
+// Response after adding a book
+message BookResponse {
+  string message = 1;
+}
+
+// List of books
+message BookList {
+  repeated Book books = 1;
+}
+
+// Empty message
+message Empty {}
