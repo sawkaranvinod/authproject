@@ -74,7 +74,6 @@ const userSchema = new mongoose.Schema(
         },
         paymentMethod:{
             type:[String],
-            required:true,
             lowercase:true,
             default:"none",
             enum:["none","creditCard","debitCard","UpiId"]
@@ -94,7 +93,15 @@ const userSchema = new mongoose.Schema(
         addressHasingDetail:{
             type: mongoose.Schema.Types.ObjectId,
             ref:"AddressHashingDetail",
-        }
+        },
+        noOfDeviceActiveLogin:{
+            type: [mongoose.Schema.Types.ObjectId],
+            ref:"LoginDetail",
+        },
+        context:{
+            type:[String],
+            lowercase:true,
+        },
     },
     {
         timestamps:true,
