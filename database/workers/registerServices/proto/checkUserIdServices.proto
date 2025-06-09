@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package checkUserId;
+
+
+service CheckUserId {
+  rpc checkUserIdAvailablity (userId) returns (availablity);
+}
+
+message userId {
+  string userId = 1;
+}
+
+message availablity {
+  bool isExist = 1;
+  string userId = 2;
+  string publicKey = 3;
+  string salt = 4;
+  string iv = 5;
+}
+

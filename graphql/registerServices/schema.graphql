@@ -1,0 +1,91 @@
+mutation CheckUserId($userId: String!) {
+  checkUserIdAvailablity(userId: $userId) {
+    isExist
+    userId
+    publicKey
+    salt
+    iv
+  }
+}
+
+
+{
+  "userId": "karan"
+}
+
+mutation Register(
+  $userId: String!
+  $hashedPassword: String!
+  $hashedName: String!
+  $email: String!
+  $hashedFatherName: String
+  $hashedMotherName: String
+  $longitude: Float
+  $latitude: Float
+  $browser: String!
+  $deviceName: String!
+  $method: String!
+) {
+  register(
+    userId: $userId
+    hashedPassword: $hashedPassword
+    hashedName: $hashedName
+    email: $email
+    hashedFatherName: $hashedFatherName
+    hashedMotherName: $hashedMotherName
+    longitude: $longitude
+    latitude: $latitude
+    browser: $browser
+    deviceName: $deviceName
+    method: $method
+  ) {
+    message
+    userId
+  }
+}
+
+
+{
+  "userId": "testuser123",
+  "hashedPassword": "hashedpassword123",
+  "hashedName": "hashedname123",
+  "email": "testuser123@example.com",
+  "hashedFatherName": "hashedfather123",
+  "hashedMotherName": "hashedmother123",
+  "longitude": 77.123,
+  "latitude": 28.456,
+  "browser": "chrome",
+  "deviceName": "macbook",
+  "method": "email"
+}
+
+
+
+mutation ResendOTP($userId: String!) {
+  resendOTP(userId: $userId) {
+    acknowledgement
+    userId
+  }
+}
+
+{
+  "userId": "testuser123"
+}
+
+
+
+
+mutation verifyOTP(
+  $userId:String!
+  $OTP:Float!
+){
+	verifyOTP(userId:$userId,OTP:$OTP){
+    acknowledgement,
+    userId
+  }
+}
+
+{
+  "userId": "testuser123",
+  "OTP": 12568
+}

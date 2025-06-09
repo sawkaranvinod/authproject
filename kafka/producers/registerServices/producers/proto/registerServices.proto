@@ -3,12 +3,24 @@ syntax = "proto3";
 package registerServices;
 
 service RegisterServices {
+    rpc checkUserIdAvailablity (userId) returns (availablity);
     rpc register (userData) returns (registerAcknowledgement);
     rpc resendOTP (resendOTP) returns (recendOTPAcknowledgement);
     rpc verifyOTP (verifyOTP) returns (verifiedOTPAcknowledgement);
 };
 
 
+message userId {
+    string userId = 1;
+};
+
+message availablity {
+    bool isExist = 1;
+    string publicKey = 2;
+    string salt = 3;
+    string iv = 4;
+    string userId = 5;
+};
 
 message userData {
     string userId = 1;
