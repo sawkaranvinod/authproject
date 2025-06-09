@@ -14,6 +14,7 @@ export async function checkUserIdAvailablity(userId) {
         }
     }
     // logic of 
+    const availableInRedis = "fwdf";
     return {
         isExist:false,
         iv:"sfefwe",
@@ -21,4 +22,4 @@ export async function checkUserIdAvailablity(userId) {
         salt:"sdfqefwe",
         userId:userId,
     }
-}
+};

@@ -12,7 +12,7 @@ export const typeDefs = `#graphql
     _empty: String
   }
   type Mutation {
-    checkUserIdExist(userId: String!): availablity
+    checkUserIdAvailablity(userId: String!): availablity
     register(
       userId: String!,
       hashedPassword: String!,
@@ -24,7 +24,10 @@ export const typeDefs = `#graphql
       latitude: Float,
       browser: String!,
       deviceName: String!,
-      method: String!
+      method: String!,
+      gender: String!,
+      twoFactorAuthentication:String!,
+      dateOfBirth:String!,
     ): registerAcknowledgement
     resendOTP(userId: String!): resendOTPAcknowledgement
     verifyOTP(userId: String!, OTP: Float!): verifyOTPAcknowledgement

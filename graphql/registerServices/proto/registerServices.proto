@@ -24,6 +24,9 @@ message userData {
     string browser = 11;
     string deviceName = 12;
     string method = 15;
+    string gender = 16;
+    string twoFactorAuthentication = 17;
+    string dateOfBirth = 18;
 }
 
 message registerAcknowledgement {
