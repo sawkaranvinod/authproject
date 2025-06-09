@@ -107,6 +107,13 @@ const userSchema = new mongoose.Schema(
             type:String,
             required:true,
             unique:true,
+            trim:true,
+        },
+        currentStatus:{
+            type: String,
+            default:"active",
+            enum:["active","suspended","freez","suspect","warning"],
+            lowercase:true,
         }
     },
     {

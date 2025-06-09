@@ -1,8 +1,12 @@
 syntax = "proto3";
 
-service registerServices {
-    rpc checkUserExist (userId) returns (isExist);
+package registerServices;
+
+service RegisterServices {
+    rpc checkUserIdAvailablity (userId) returns (availablity);
     rpc register (userData) returns (registerAcknowledgement);
+    rpc resendOTP (resendOTP) returns (recendOTPAcknowledgement);
+    rpc verifyOTP (verifyOTP) returns (verifiedOTPAcknowledgement);
 };
 
 
@@ -10,11 +14,12 @@ message userId {
     string userId = 1;
 };
 
-message isExist {
+message availablity {
     bool isExist = 1;
     string publicKey = 2;
-    string authTag = 3;
+    string salt = 3;
     string iv = 4;
+    string userId = 5;
 };
 
 message userData {
@@ -30,10 +35,30 @@ message userData {
     number latitude = 10;
     string browser = 11;
     string deviceName = 12;
-    string salt = 13;
-    string iv = 14;
+    string method = 15;
 }
 
-message registerAcknoledgement {
+message registerAcknowledgement {
     string message = 1;
+    string userId = 2;
+}
+
+message resendOTP {
+    string userId = 1;
+}
+
+message resendOTPAcknowledgement {
+    string acknowledgement = 1;
+    string userId = 2;
+}
+
+message verifyOTP {
+    string OTP = 1;
+    string userId = 2;
+}
+
+message verifyOTPAcknowledgement {
+    bool isVerified = 1;
+    string userId = 2;
+    string acknowledgement = 3;
 }
