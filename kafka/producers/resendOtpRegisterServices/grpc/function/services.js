@@ -4,4 +4,5 @@ import {config} from "dotenv";
 config();
 
 
-const topic = process.env.RESEND_OTP_REGISTER_SERVICES_REDPANDA_TOPIC || "resendOTPRegisterServices"
+const topic = process.env.RESEND_OTP_REGISTER_SERVICES_REDPANDA_TOPIC || "resendOTPRegisterServices";
+const partition = process.env.RESEND_OTP_REGISTER_SERVICES_REDPANDA_PARTITION || 0;

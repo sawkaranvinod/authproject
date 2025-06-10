@@ -1,5 +1,11 @@
 import {kafka} from "./exports/kafka.conf.js";
+import {config} from "dotenv";
+config();
 
+const topic = process.env.TOPIC || "registerServicesOtp";
+const faultTolaranceTopic = process.env.FAULTTOLARANCE_TOPIC || "registerServicesOTPFaultTolarance";
+const faultTolarancePartition = process.env.FAULTTOLARANCE_NO_PARTITION || 6;
+const partition = process.env.NO_PARTITION || 6;
 
 async function init() {
      const admin = kafka.admin();
@@ -10,12 +16,12 @@ async function init() {
         {
             topics:[
                 {
-                    topic:"registerServicesOTP",
-                    numPartitions:6,
+                    topic:`${topic}`,
+                    numPartitions:Number(partition),
                 },
                 {
-                    topic:"registerServicesOTPFaultTolarance",
-                    numPartitions:6
+                    topic:`${faultTolaranceTopic}`,
+                    numPartitions:Number(faultTolarancePartition),
                 }
             ]
         }
