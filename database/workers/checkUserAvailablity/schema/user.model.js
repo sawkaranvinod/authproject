@@ -46,7 +46,6 @@ const userSchema = new mongoose.Schema(
         },
         TypeOfSecurityKey:{
             type: String,
-            lowercase:true,
             default: "none",
             enum: ['faceId', 'fingerprint', 'securityKey',"none"],
         },
