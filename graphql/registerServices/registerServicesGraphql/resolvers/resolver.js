@@ -1,4 +1,4 @@
-import {ClientCheckUserIdAvailablity,ClientRegister} from "../../grpcClientServer/registerService.grpcClient.js";
+import {ClientCheckUserIdAvailablity,ClientRegister,ResendOTPRegisterServices,VerifyOTPRegisterServices} from "../../grpcClientServer/registerService.grpcClient.js";
 
 const Mutation = {
     checkUserIdAvailablity: async (_, { userId,method }) => {
@@ -97,7 +97,7 @@ const Mutation = {
     },
     resendOTP:async (_,{userId}) =>{
         return new Promise((resolve,reject)=>{
-            ClientRegister.resendOTP({userId},(err,res)=>{
+            ResendOTPRegisterServices.resendOTP({userId},(err,res)=>{
                 if(err){
                     console.log(err);
                     return reject(err);
@@ -121,7 +121,7 @@ const Mutation = {
     },
     verifyOTP: async (_,{userId,OTP}) => {
         return new Promise((resolve,reject)=>{
-            ClientRegister.verifyOTP({userId,OTP},(err,res)=>{
+            VerifyOTPRegisterServices.verifyOTP({userId,OTP},(err,res)=>{
                 if(err){
                     console.log(err);
                     return reject(err);

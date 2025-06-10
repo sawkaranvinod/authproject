@@ -31,3 +31,4 @@ message registerAcknowledgement {
     string acknowledgement = 1;
     string userId = 2;
 }
+

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package resendOTPRegisterServices;
+
+
+service ResendOTPRegisterServices {
+    rpc resendOTP (resendOTP) returns (resendOTPAcknowledgement);
+};
+
+
+
+message resendOTP {
+    string userId = 1;
+};
+
+message resendOTPAcknowledgement {
+    string acknowledgement = 1;
+    string userId = 2;
+};

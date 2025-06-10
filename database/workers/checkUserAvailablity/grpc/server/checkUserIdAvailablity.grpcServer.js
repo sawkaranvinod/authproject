@@ -11,7 +11,7 @@ const __dirname = path.dirname(__filename);
 
 config();
 
-const checkUserIdServerPort = process.env.PORT || "40002"
+const checkUserIdServerPort = process.env.PORT || "40001"
 
 const packageDefinition = protoLoader.loadSync(
     path.join(__dirname, "../../proto/checkUserIdServices.proto"),
