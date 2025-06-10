@@ -15,10 +15,16 @@ const { publicKey, privateKey } = crypto.generateKeyPairSync("rsa", {
 
 console.log("publicKey",publicKey)
 
-// 🔐 2. Generate AES-256 Key, Salt, IV (All as Strings)
-const aesKey = crypto.randomBytes(32); // 256-bit AES key
-const iv = crypto.randomBytes(16);     // 128-bit IV
-const salt = crypto.randomBytes(16);   // Optional, if you want to show
+// 🔐 2. Derive AES-256 Key using scrypt with custom N, r, p
+const password = "your-strong-password"; // Use a secure password!
+const salt = crypto.randomBytes(16);     // 128-bit salt
+
+const n = 2 ** 14; // Cost factor
+const r = 8;       // Block size
+const p = 1;       // Parallelization
+
+const aesKey = crypto.scryptSync(password, salt, 32, { n, r, p }); // 32 bytes = 256 bits
+const iv = crypto.randomBytes(16);   // 128-bit IV
 
 // Convert AES key, salt, IV to base64 strings
 const aesKeyStr = aesKey.toString("base64");
@@ -42,6 +48,7 @@ function encryptAES(plaintext, aesKeyBase64, ivBase64) {
 function decryptAES(ciphertextBase64, aesKeyBase64, ivBase64) {
   const key = Buffer.from(aesKeyBase64, "base64");
   const iv = Buffer.from(ivBase64, "base64");
+
   const decipher = crypto.createDecipheriv("aes-256-cbc", key, iv);
   const decrypted = Buffer.concat([
     decipher.update(Buffer.from(ciphertextBase64, "base64")),
