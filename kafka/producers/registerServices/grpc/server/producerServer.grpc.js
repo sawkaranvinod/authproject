@@ -12,7 +12,7 @@ const __dirname = path.dirname(__filename);
 config();
 
 
-const registerServiceProducerPort = process.env.GRPC_PORT || 50001;
+const registerServiceProducerPort = process.env.GRPC_REGISTER_SERVER_PORT || 50001;
 
 
 const packageDefination = protoLoader.loadSync(path.join(__dirname,"../../proto/registerServices.proto"),{});

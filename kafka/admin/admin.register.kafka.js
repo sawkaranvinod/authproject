@@ -2,10 +2,10 @@ import {kafka} from "./exports/kafka.conf.js";
 import {config} from "dotenv";
 config();
 
-const topic = process.env.TOPIC || "registerServicesOtp";
-const faultTolaranceTopic = process.env.FAULTTOLARANCE_TOPIC || "registerServicesOTPFaultTolarance";
-const faultTolarancePartition = process.env.FAULTTOLARANCE_NO_PARTITION || 6;
-const partition = process.env.NO_PARTITION || 6;
+const topic = process.env.REDPANDA_TOPIC || "registerServicesOtp";
+const faultTolaranceTopic = process.env.REDPANDA_FAULT_TOLERANCE_TOPIC || "registerServicesOTPFaultTolarance";
+const faultTolarancePartition = process.env.REDPANDA_FAULT_TOLERANCE_NO_PARTITION || 6;
+const partition = process.env.REDPANDA_NO_PARTITION || 6;
 
 async function init() {
      const admin = kafka.admin();
@@ -34,4 +34,4 @@ async function init() {
      
 };
 
-init()
+init();

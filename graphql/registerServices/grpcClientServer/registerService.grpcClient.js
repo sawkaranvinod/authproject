@@ -29,11 +29,11 @@ export const ClientCheckUserIdAvailablity = new proto2.CheckUserId(checkUserIdUr
 
 const resendOtpRegisterServicesUrl = process.env.RESEND_OTP_REGISTER_SERVICES_URL || "localhost:45001";
 const resendOTPRegistrationServicesPackageDefination = protoLoader.loadSync(
-    path.join(__dirname,"../proto/resendOTPRegisterServices.proto"),{}
+    path.join(__dirname,"../proto/resendOTP.proto"),{}
 );
 
-const proto3 = loadPackageDefinition(resendOTPRegistrationServicesPackageDefination).resendOTPRegisterServices;
-export const ResendOTPRegisterServices = new proto3.ResendOTPRegisterServices(resendOtpRegisterServicesUrl,grpc.credentials.createInsecure());
+const proto3 = loadPackageDefinition(resendOTPRegistrationServicesPackageDefination).resendOTP;
+export const ResendOTPRegisterServices = new proto3.ResendOTP(resendOtpRegisterServicesUrl,grpc.credentials.createInsecure());
 
 
 const verifyOTPRegisterServicesUrl = process.env.VERIFY_OTP_REGISTER_SERVICES || "localhost:55001";

@@ -3,6 +3,7 @@ import {config} from "dotenv";
 import protoLoader from "@grpc/proto-loader";
 import path from "path";
 import {fileURLToPath} from "url";
+import {services} from "../function/services.js"
 
 config();
 
@@ -10,19 +11,19 @@ config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const resendOTPRegisterServicesPort = process.env.RESEND_OTP_SERVER_PORT || 45001;
+const resendOTPRegisterServicesPort = process.env.GRPC_RESEND_OTP_PORT || 45001;
 
 
 const packageDefination = protoLoader.loadSync(
-    path.join(__dirname,"../../proto/resendOTPRegisterServices.proto"),{}
+    path.join(__dirname,"../../proto/resendOTP.proto"),{}
 );
 
-const proto = grpc.loadPackageDefinition(packageDefination).resendOTPRegisterServices;
+const proto = grpc.loadPackageDefinition(packageDefination).resendOTP;
 
 export function startServer() {
     console.log("starting server")
     const server = new grpc.Server();
-    server.addService(proto.ResendOTPRegisterServicces,services);
+    server.addService(proto.ResendOTP,services);
     server.bindAsync(`0.0.0.0:${resendOTPRegisterServicesPort}`);
-    console.log(`resendOTPRegisterServices grpc server is starting at localhost:${resendOTPRegisterServicesPort}`);
+    console.log(`resendOTPRegisterServices grpc server is starting at localhost:${resendOTP}`);
 }

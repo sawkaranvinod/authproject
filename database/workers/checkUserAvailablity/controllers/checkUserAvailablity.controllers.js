@@ -6,7 +6,7 @@ import {generateKeysAndSecrets} from "../helper/encyptionData.js"
 export async function checkUserIdAvailablity(userId,method) {
     const available = await User.findOne({userId});
     const availableInRedisEncryptingCache = await  redisEncryptingDataCache.get(`encryptionData:${userId}`);
-    const availableInredisUserDataCache = await redisUserDataCache.get(`encryptionData:${userId}`)
+    const availableInredisUserDataCache = await redisUserDataCache.get(`userData:${userId}`)
 
     // console.log(availableInRedis,"          ",available);
     if (available || availableInRedisEncryptingCache || availableInredisUserDataCache) {

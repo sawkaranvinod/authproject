@@ -1,68 +1,69 @@
 import {producer} from "../../config/redpanda.config.js";
-import {config} from "dotenv"
+import {config} from "dotenv";
+import {redisEncryptingDataCache,redisUserDataCache} from "../../config/redis.config.js"
 config();
-const topic = process.env.REGISTER_SERVICES_REDPANDA_TOPIC || "registerServiceOTP";
-const partition = process.env.REGISTER_SERVICES_REDPANDA_PARTITION || 0;
+const topic = process.env.REDPANDA_REGISTER_PRODUCER_TOPIC || "registerServiceOTP";
+const partition = process.env.REDPANDA_REGISTER_PRODUCER_PARTITION|| 0;
+const faultTolaranceTopic = process.env.REDPANDA_REGISTER_FAULT_TOLARANCE_TOPIC ||"registerServicesOTPFaultTolarance";
+const faultTolarancePartiton = process.env.REDPANDA_REGISTER_FAULT_TOLARANCE_PARTITION || 0;
 
 
 export const services = {
     register:async (call,callback)=>{
         const userData = call?.request;
-        const produce = await producer.send(
-            {
-                topic: `${topic}`,
-                partition: Number(partition),
-                messages: [{ key: "sendOTP", value: JSON.stringify(userData) }], // <-- fix here
-            }
-        );
-
-        const result = {
-            acknowledgement:"message produced",
-            userId: call.request.userId,
-        }
-        const error = {
-            acknowledgement:"internal server error",
-            userId: "",
-        };
-        if(!produce){
-            callback(null,error);
-        };
-        callback(null,result);
-    },
-    resendOTP:async (call,callback) => {
-        const userId = call.request.userId;
-        if(!userId){
-            callback(null,{acknowledgement:"internal server error",userId:""});
-        };
-        const resendOTP = await producer.send(
-            {
-                topic: `registerServicesResendOTP`,
-                partition: 0,
-                messages: [{ key: "resendOTP", value: userId }] // <-- fix here
-            }
-        );
          const result = {
-            acknowledgement:"otp resendded",
+            acknowledgement:"otp is sending",
             userId: call.request.userId,
         }
-        const error = {
+        const problem = {
             acknowledgement:"internal server error",
             userId: "",
         };
-        if(!resendOTP){
-            callback(null,error);
+       try {
+        let encryptionData = redisEncryptingDataCache.get(`encryptionData:${userId}`);
+        if (!encryptionData) {
+            callback(null,problem);
         };
-        callback(null,result);
-    },
-    verifyOTP:async (call,callback) => {
-        const {OTP,userId} = call.request;
-        console.log(OTP,userId);
-        const result = {
-            isVerified : false,
-            userId:userId,
-            acknowledgement:"user doest verified"
+        encryptionData = await JSON.parse(encryptionData);
+        userData.privateKey = encryptionData.privateKey;
+        userData.r = encryptionData.r;
+        userData.p = encryptionData.p;
+        userData.n = encryptionData.n;
+        userData.iv = encryptionData.iv;
+        userData.salt = encryptionData.salt;
+        userData.publicKey = encryptionData.publicKey;
+         const produce = await producer.send(
+             {
+                 topic: `${topic}`,
+                 partition: Number(partition),
+                 messages: [{ key: "sendOTP", value: JSON.stringify(userData) }], // <-- fix here
+             }
+         );
+         if (produce) {
+            // const userDatacache = await redisUserDataCache.set(`userData:${userData.userId}`,userData,"EX",300);
+             callback(null,result);
+         }
+         callback(null,problem);
+       } catch (error) {
+        console.log(error);
+        try {
+             const produce = await producer.send(
+                 {
+                     topic: `${faultTolaranceTopic}`,
+                     partition: Number(faultTolarancePartiton),
+                     messages: [{ key: "sendOTP", value: JSON.stringify(userData) }], // <-- fix here
+                 }
+             );
+             if (produce) {
+                 
+                callback(null,result);
+            };
+            callback(null,problem);
+        } catch (error) {
+            console.log("error in fault tolarance",error);
+            callback(null,problem);
         }
-        callback(null,result)
-        
-    }
+       }
+    },
+    
 }
