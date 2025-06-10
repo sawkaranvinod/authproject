@@ -23,10 +23,7 @@ const proto = grpc.loadPackageDefinition(packageDefinition).checkUserId;
 export function startServer() {
     console.log("Starting gRPC server setup...");
     const server = new grpc.Server();
-    // Use the service definition, not the client constructor
-    // console.log("proto.CheckUserId:", proto.CheckUserId);
-    // console.log("proto.CheckUserId.service:", proto.CheckUserId?.service);
-    // console.log("services:", services);
+   
     server.addService(proto.CheckUserId.service, services);
     server.bindAsync(`0.0.0.0:${checkUserIdServerPort}`, grpc.ServerCredentials.createInsecure(), (err, port) => {
         if (err) {

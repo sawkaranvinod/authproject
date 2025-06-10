@@ -30,25 +30,41 @@ const Mutation = {
             });
         });
     },
-    register: async (_, { userId, hashedPassword, hashedName, email, hashedFatherName, hashedMotherName, longitude, latitude, browser, deviceName, method }) => {
-        return new Promise((resolve,reject)=>{
+    register: async (_, { 
+        userId, 
+        hashedPassword, 
+        hashedName, 
+        email, 
+        hashedFatherName, 
+        hashedMotherName, 
+        longitude, 
+        latitude, 
+        browser, 
+        deviceName, 
+        method, 
+        gender, 
+        twoFactorAuthentication, 
+        dateOfBirth, 
+        hashedIpAddress // if needed
+    }) => {
+        return new Promise((resolve, reject) => {
             ClientRegister.register({
                 userId,
+                hashedPassword,
                 hashedName,
+                email,
                 hashedFatherName,
                 hashedMotherName,
-                email,
-                hashedPassword,
                 longitude,
                 latitude,
                 browser,
                 deviceName,
                 method,
-                twoFactorAuthentication,
                 gender,
+                twoFactorAuthentication,
                 dateOfBirth,
-
-            },(err,res)=>{
+                hashedIpAddress // if needed
+            }, (err, res) => {
                 if(err){
                     console.log(err);
                     return reject(err);
@@ -57,14 +73,14 @@ const Mutation = {
                 if(!res){
                     return resolve(
                         {
-                            message:"internal server error",
+                            acknowledgement:"internal server error",
                             userId:userId,
                         }
                     )
                 }
                 resolve(
                     {
-                        message: res.message ?? "interal server error",
+                        acknowledgement: res.acknowledgement ?? "interal server error",
                         userId: res.userId ?? userId,
                     }
                 )

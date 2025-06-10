@@ -13,7 +13,7 @@ mutation CheckUserId($userId: String!) {
   "userId": "karan"
 }
 
-mutation Register(
+mutation register(
   $userId: String!
   $hashedPassword: String!
   $hashedName: String!
@@ -25,6 +25,9 @@ mutation Register(
   $browser: String!
   $deviceName: String!
   $method: String!
+  $dateOfBirth:String!
+  $gender:String!
+  $twoFactorAuthentication:String!
 ) {
   register(
     userId: $userId
@@ -38,12 +41,14 @@ mutation Register(
     browser: $browser
     deviceName: $deviceName
     method: $method
+    dateOfBirth:$dateOfBirth
+    gender:$gender
+    twoFactorAuthentication:$twoFactorAuthentication
   ) {
-    message
+   	acknowledgement
     userId
   }
 }
-
 
 {
   "userId": "testuser123",
@@ -56,9 +61,11 @@ mutation Register(
   "latitude": 28.456,
   "browser": "chrome",
   "deviceName": "macbook",
-  "method": "email"
+  "method": "email",
+  "gender": "male",
+  "dateOfBirth": "25/09/2004",
+  "twoFactorAuthentication": "none"
 }
-
 
 
 mutation ResendOTP($userId: String!) {

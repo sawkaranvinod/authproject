@@ -3,24 +3,12 @@ syntax = "proto3";
 package registerServices;
 
 service RegisterServices {
-    rpc checkUserIdAvailablity (userId) returns (availablity);
     rpc register (userData) returns (registerAcknowledgement);
-    rpc resendOTP (resendOTP) returns (recendOTPAcknowledgement);
-    rpc verifyOTP (verifyOTP) returns (verifiedOTPAcknowledgement);
+    rpc resendOTP (resendOTP) returns (resendOTPAcknowledgement);
+    rpc verifyOTP (verifyOTP) returns (verifyOTPAcknowledgement);
 };
 
 
-message userId {
-    string userId = 1;
-};
-
-message availablity {
-    bool isExist = 1;
-    string publicKey = 2;
-    string salt = 3;
-    string iv = 4;
-    string userId = 5;
-};
 
 message userData {
     string userId = 1;
@@ -31,15 +19,18 @@ message userData {
     string hashedFatherName = 6;
     string hashedDOB = 7;
     string hashedIpAddress = 8;
-    number longitude = 9;
-    number latitude = 10;
+    double longitude = 9;
+    double latitude = 10;
     string browser = 11;
     string deviceName = 12;
-    string method = 15;
+    string method = 13;
+    string gender = 14;
+    string twoFactorAuthentication = 15;
+    string dateOfBirth = 16;
 }
 
 message registerAcknowledgement {
-    string message = 1;
+    string acknowledgement = 1;
     string userId = 2;
 }
 
