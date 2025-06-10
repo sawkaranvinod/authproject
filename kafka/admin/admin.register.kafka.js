@@ -10,11 +10,11 @@ async function init() {
         {
             topics:[
                 {
-                    topic:"authSystemRegisterUser",
+                    topic:"registerServicesOTP",
                     numPartitions:6,
                 },
                 {
-                    topic:"authSystemRegisterUserFaultTolarance",
+                    topic:"registerServicesOTPFaultTolarance",
                     numPartitions:6
                 }
             ]
