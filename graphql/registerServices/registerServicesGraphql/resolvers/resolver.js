@@ -1,9 +1,9 @@
 import {ClientCheckUserIdAvailablity,ClientRegister} from "../../grpcClientServer/registerService.grpcClient.js";
 
 const Mutation = {
-    checkUserIdAvailablity: async (_, { userId }) => {
+    checkUserIdAvailablity: async (_, { userId,method }) => {
         return new Promise((resolve, reject) => {
-            ClientCheckUserIdAvailablity.checkUserIdAvailablity({ userId }, (err, res) => {
+            ClientCheckUserIdAvailablity.checkUserIdAvailablity({ userId,method }, (err, res) => {
                 if (err) {
                     console.log(err);
                     return reject(err);
@@ -16,7 +16,10 @@ const Mutation = {
                         userId,
                         publicKey: null,
                         salt: null,
-                        iv: null
+                        iv: null,
+                        r:0,
+                        p:0,
+                        n:0,
                     });
                 }
                 // console.log(res)
@@ -26,7 +29,10 @@ const Mutation = {
                     userId: res.userId ?? userId,
                     publicKey: res.publicKey ?? null,
                     salt: res.salt ?? null,
-                    iv: res.iv ?? null
+                    iv: res.iv ?? null,
+                    r: res.r ?? 0,
+                    p: res.p ?? 0,
+                    n: res.n ?? 0,
                 });
             });
         });

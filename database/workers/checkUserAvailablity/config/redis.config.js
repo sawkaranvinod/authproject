@@ -1,6 +1,6 @@
 import Redis from "ioredis";
 
-
-export const redis = new Redis();
+export const redisUserDataCache = new Redis();
+export const redisEncryptingDataCache = new Redis(6380);
 
 

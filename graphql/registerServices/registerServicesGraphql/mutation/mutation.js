@@ -12,7 +12,7 @@ export const typeDefs = `#graphql
     _empty: String
   }
   type Mutation {
-    checkUserIdAvailablity(userId: String!): availablity
+    checkUserIdAvailablity(userId: String!,method:String!): availablity
     register(
       userId: String!,
       hashedPassword: String!,

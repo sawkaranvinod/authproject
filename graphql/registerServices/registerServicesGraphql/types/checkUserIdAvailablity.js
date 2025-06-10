@@ -4,6 +4,9 @@ export const availablity = `#graphql
     userId: String!
     publicKey: String
     salt: String
-    iv: String
+    iv: String,
+    r: Float!,
+    p:Float!,
+    n:Float!
   }
 `

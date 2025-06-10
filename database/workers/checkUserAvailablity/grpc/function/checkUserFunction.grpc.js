@@ -3,7 +3,8 @@ import {checkUserIdAvailablity} from "../../controllers/checkUserAvailablity.con
 export const services = {
     checkUserIdAvailablity: async (call, callback) => {
         const userId = call.request.userId; // <-- FIXED
-        const result = await checkUserIdAvailablity(userId);
+        const method = call.request.method || "standard";
+        const result = await checkUserIdAvailablity(userId,method);
         callback(null, result);
     }
 };

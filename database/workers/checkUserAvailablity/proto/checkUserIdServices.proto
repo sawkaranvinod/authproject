@@ -9,6 +9,7 @@ service CheckUserId {
 
 message userId {
   string userId = 1;
+  string method = 2;
 }
 
 message availablity {
@@ -17,5 +18,8 @@ message availablity {
   string publicKey = 3;
   string salt = 4;
   string iv = 5;
+  double r = 6;
+  double p = 7;
+  double n = 8;
 }
 
