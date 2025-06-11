@@ -29,6 +29,6 @@ export function startServer() {
       console.log(err);
       process.exit(-1);
     };
-    console.log(`server started at localhost:${registerServiceProducerPort}`);
+    console.log(`server started at 0.0.0.0:${registerServiceProducerPort}`);
   });
 }

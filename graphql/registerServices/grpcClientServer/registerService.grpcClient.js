@@ -10,7 +10,8 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const registerUrl = process.env.REGISTER_SERVICES_URL || "localhost:50001";
+// const registerUrl = process.env.REGISTER_SERVICES_URL || "localhost:50001";
+const registerUrl ="localhost:50005"
 const registerPackageDefination = protoLoader.loadSync(
     path.join(__dirname,"../proto/registerServices.proto"),{}
 );
@@ -18,16 +19,19 @@ const proto = loadPackageDefinition(registerPackageDefination).registerServices;
 
 export const ClientRegister = new proto.RegisterServices(registerUrl, grpc.credentials.createInsecure());
 
-const checkUserIdUrl = process.env.CHECKUSERID_AVAILABLITY || "localhost:40001";
-const checkUserIdPackageDefination = protoLoader.loadSync(
-    path.join(__dirname,"../proto/checkUserIdServices.proto"),{}
+// Load checkUserId proto
+const checkUserIdPackageDefinition = protoLoader.loadSync(
+    path.join(__dirname, "../proto/checkUserIdServices.proto"), {}
 );
-const proto2 = loadPackageDefinition(checkUserIdPackageDefination).checkUserId;
+const proto2 = loadPackageDefinition(checkUserIdPackageDefinition).checkUserId;
 
+// const checkUserIdUrl = process.env.CHECKUSERID_AVAILABLITY || "localhost:40001";
+const checkUserIdUrl = "localhost:40005";
 export const ClientCheckUserIdAvailablity = new proto2.CheckUserId(checkUserIdUrl, grpc.credentials.createInsecure());
 
 
-const resendOtpRegisterServicesUrl = process.env.RESEND_OTP_REGISTER_SERVICES_URL || "localhost:45001";
+// const resendOtpRegisterServicesUrl = process.env.RESEND_OTP_REGISTER_SERVICES_URL || "localhost:45001";
+const resendOtpRegisterServicesUrl = "localhost:45005"
 const resendOTPRegistrationServicesPackageDefination = protoLoader.loadSync(
     path.join(__dirname,"../proto/resendOTP.proto"),{}
 );

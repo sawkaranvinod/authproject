@@ -17,6 +17,7 @@ function getBroker(brokersString, brokerPort) {
         throw new Error("Enter valid Port number");
     }
 
+    // Use localhost for local development
     return [`localhost:${port}`];
 }
 

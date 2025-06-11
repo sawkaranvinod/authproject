@@ -2,8 +2,10 @@
   "name": "resendotpregisterservices",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev":"nodemon index.js"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +15,7 @@
     "@grpc/grpc-js": "^1.13.4",
     "@grpc/proto-loader": "^0.7.15",
     "dotenv": "^16.5.0",
-    "kafkajs": "^2.2.4"
+    "kafkajs": "^2.2.4",
+    "nodemon": "^3.1.10"
   }
 }

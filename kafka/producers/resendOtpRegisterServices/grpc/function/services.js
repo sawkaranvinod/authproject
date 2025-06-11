@@ -8,10 +8,11 @@ const faultTolarancePartiton = process.env.REDPANDA_RESEND_OTP_FAULT_TOLARANCE_P
 
 
 export const services = {
-    register:async (call,callback)=>{
+    resendOTP: async (call, callback) => {
         const userData = call?.request;
         let result;
-        
+        // console.log(call); // used for debuging
+
         if (userData) {
             result = {
                 acknowledgement:"otp is sending",
@@ -32,10 +33,10 @@ export const services = {
                  messages: [{ key: "sendOTP", value: JSON.stringify(userData) }], // <-- fix here
              }
          );
-         if (produce) {
+         
             callback(null,result);
-         }
-         callback(null,problem);
+         
+         
        } catch (error) {
         console.log(error);
         try {
@@ -46,11 +47,11 @@ export const services = {
                      messages: [{ key: "sendOTP", value: JSON.stringify(userData) }], // <-- fix here
                  }
              );
-             if (produce) {
+             
                 
                 callback(null,result);
-             };
-             callback(null,problem)
+             
+             
         } catch (error) {
             console.log("error in fault tolarance",error);
             callback(null,problem);

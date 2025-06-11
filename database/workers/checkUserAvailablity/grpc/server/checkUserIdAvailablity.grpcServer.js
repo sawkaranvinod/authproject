@@ -30,7 +30,7 @@ export function startServer() {
             console.error("Failed to bind server:", err);
             process.exit(1);
         }
-        console.log(`server is started at port localhost:${checkUserIdServerPort}`);
-        // server.start();
+        console.log(`server is started at port 0.0.0.0:${checkUserIdServerPort}`);
+        server.start(); // <-- Start the server so clients can connect
     });
 }

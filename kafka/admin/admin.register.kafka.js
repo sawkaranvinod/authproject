@@ -1,4 +1,4 @@
-import {kafka} from "./exports/kafka.conf.js";
+import {admin} from "./conf/kafka.conf.js";
 import {config} from "dotenv";
 config();
 
@@ -8,7 +8,6 @@ const faultTolarancePartition = process.env.REDPANDA_FAULT_TOLERANCE_NO_PARTITIO
 const partition = process.env.REDPANDA_NO_PARTITION || 6;
 
 async function init() {
-     const admin = kafka.admin();
      console.log("admin connecting");
      await admin.connect();
      console.log("admin connected sucessfully");

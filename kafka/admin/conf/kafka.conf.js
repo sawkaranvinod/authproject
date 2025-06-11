@@ -1,7 +1,7 @@
 import { Kafka } from "kafkajs";
-import dotenv from "dotenv";
+import {config} from "dotenv";
 
-dotenv.config();
+config();
 
 const brokersString = process.env.REDPANDA_BROKERS;
 const brokerPort = process.env.REDPANDA_BROKER_PORT || "9092";
@@ -22,7 +22,8 @@ function getBroker(brokersString, brokerPort) {
 
 const brokers = getBroker(brokersString, brokerPort);
 
-export const kafka = new Kafka({
+const kafka = new Kafka({
     brokers,
     clientId,
 });
+export const admin = kafka.admin();

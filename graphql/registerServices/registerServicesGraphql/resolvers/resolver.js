@@ -85,19 +85,18 @@ const Mutation = {
                         }
                     )
                 }
-                resolve(
-                    {
-                        acknowledgement: res.acknowledgement ?? "interal server error",
-                        userId: res.userId ?? userId,
-                    }
-                )
+                console.log("gRPC register response:", res);
+                resolve({
+                    acknowledgement: res.acknowledgement ?? "internal server error",
+                    userId: res.userId ?? userId,
+                });
                 
             })
         })
     },
-    resendOTP:async (_,{userId}) =>{
+    resendOTP: async (_,{userId, context}) =>{
         return new Promise((resolve,reject)=>{
-            ResendOTPRegisterServices.resendOTP({userId},(err,res)=>{
+            ResendOTPRegisterServices.resendOTP({userId, context},(err,res)=>{
                 if(err){
                     console.log(err);
                     return reject(err);
@@ -107,6 +106,7 @@ const Mutation = {
                         {
                             acknowledgement:"internal server error",
                             userId:userId,
+                            context: context,
                         }
                     )
                 };
@@ -114,6 +114,7 @@ const Mutation = {
                     {
                         acknowledgement:res.acknowledgement ?? "internal server error",
                         userId: userId,
+                        context: context,
                     }
                 )
             })

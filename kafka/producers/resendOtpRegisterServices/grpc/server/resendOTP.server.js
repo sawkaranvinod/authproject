@@ -23,7 +23,12 @@ const proto = grpc.loadPackageDefinition(packageDefination).resendOTP;
 export function startServer() {
     console.log("starting server")
     const server = new grpc.Server();
-    server.addService(proto.ResendOTP,services);
-    server.bindAsync(`0.0.0.0:${resendOTPRegisterServicesPort}`);
-    console.log(`resendOTPRegisterServices grpc server is starting at localhost:${resendOTP}`);
+    server.addService(proto.ResendOTP.service, services); // <-- fix here
+    server.bindAsync(`0.0.0.0:${resendOTPRegisterServicesPort}`, grpc.ServerCredentials.createInsecure(), (err, port) => {
+        if (err) {
+            console.log(err);
+            process.exit(-1);
+        }
+        console.log(`resendOTPRegisterServices grpc server is starting at localhost:${resendOTPRegisterServicesPort}`);
+    });
 }

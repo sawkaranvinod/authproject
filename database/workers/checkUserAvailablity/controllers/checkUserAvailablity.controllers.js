@@ -22,7 +22,7 @@ export async function checkUserIdAvailablity(userId,method) {
         }
     }
     // logic of public privateKey
-    const {publicKey,privateKey,salt,iv,p,n,r} = await generateKeysAndSecrets(`${method}`);
+    const {publicKey,privateKey,salt,iv,p,n,r} = generateKeysAndSecrets(`${method}`);
     const encryptionData = {publicKey,privateKey,salt,iv,p,n,r};
     const cache = await redisEncryptingDataCache.set(`encryptionData:${userId}`,JSON.stringify(encryptionData),"EX",300);
     if (!cache) {

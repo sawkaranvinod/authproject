@@ -16,12 +16,6 @@ app.register(mercurius, {
 });
 
 // Register Apollo Tracing plugin
-app.register(mercuriusTracing, {
-  apiKey: process.env.APOLLO_KEY, // from your .env
-  graphRef: process.env.APOLLO_GRAPH_REF, // from your .env
-  schema:true,
-});
-
 app.listen({ port }, (err, address) => {
   if (err) {
     console.error('❌ Server failed to start:', err);

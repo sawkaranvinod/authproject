@@ -29,7 +29,7 @@ export const typeDefs = `#graphql
       twoFactorAuthentication:String!,
       dateOfBirth:String!,
     ): registerAcknowledgement
-    resendOTP(userId: String!,contest: String!): resendOTPAcknowledgement
+    resendOTP(userId: String!,context: String!): resendOTPAcknowledgement
     verifyOTP(userId: String!, OTP: Float!): verifyOTPAcknowledgement
   }
 `;

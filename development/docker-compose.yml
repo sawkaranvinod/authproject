@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  redpanda:
+  redpanda1:
     image: docker.redpanda.com/redpandadata/redpanda:latest
-    container_name: redpanda
+    container_name: redpanda1
     ports:
       - "9092:9092"   # Kafka API
       - "9644:9644"   # Admin HTTP API
@@ -23,9 +23,9 @@ services:
       - --kafka-addr
       - "PLAINTEXT://0.0.0.0:9092"
       - --advertise-kafka-addr
-      - "PLAINTEXT://localhost:9092"
+      - "PLAINTEXT://redpanda1:9092"
     volumes:
-      - redpanda_data:/var/lib/redpanda/data
+      - redpanda_data1:/var/lib/redpanda1/data
   
   redisRegisterServicesKeys: 
     image: redis/redis-stack:latest
@@ -43,9 +43,40 @@ services:
       - "8002:8001"
     volumes:
       - redisRegisterServicesUserData:/data
- 
+
+  redpanda2:
+    image: docker.redpanda.com/redpandadata/redpanda:latest
+    container_name: redpanda2
+    ports:
+      - "9093:9092"   # Kafka API
+      - "9645:9644"   # Admin HTTP API
+    command:
+      - redpanda
+      - start
+      - --overprovisioned
+      - --smp
+      - "1"
+      - --memory
+      - "1G"
+      - --reserve-memory
+      - "0M"
+      - --node-id
+      - "0"
+      - --check=false
+      - --kafka-addr
+      - "PLAINTEXT://0.0.0.0:9092"
+      - --advertise-kafka-addr
+      - "PLAINTEXT://redpanda2:9092"
+    volumes:
+      - redpanda_data2:/var/lib/redpanda2/data
+  
 
 volumes:
-  redpanda_data:
+  redpanda_data1:
   redisRegisterServicesKeys:
   redisRegisterServicesUserData:
+  redpanda_data2:
+
+networks:
+  default:
+    driver: bridge

@@ -4,7 +4,8 @@
   "main": "producer.forgotPasswordServiceP0.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev":"nodemon registerService.producer.js"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
     "@grpc/proto-loader": "^0.7.15",
     "dotenv": "^16.5.0",
     "ioredis": "^5.6.1",
-    "kafkajs": "^2.2.4"
+    "kafkajs": "^2.2.4",
+    "nodemon": "^3.1.10"
   }
 }
