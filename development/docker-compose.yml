@@ -26,6 +26,23 @@ services:
       - "PLAINTEXT://redpanda1:9092"
     volumes:
       - redpanda_data1:/var/lib/redpanda1/data
+  redisRegisterServicesQueue: 
+    image: redis/redis-stack:latest
+    container_name: redisRegisterServicesQueue
+    ports:
+      - "6382:6379"
+      - "8004:8001"
+    volumes:
+      - redisRegisterServicesQueue:/data
+  
+  redisRegisterServicesQueueFaultTolarance: 
+    image: redis/redis-stack:latest
+    container_name: redisRegisterServicesQueueFaultTolarance
+    ports:
+      - "6381:6379"
+      - "8003:8001"
+    volumes:
+      - redisRegisterServicesQueueFaultTolarance:/data
   
   redisRegisterServicesKeys: 
     image: redis/redis-stack:latest
@@ -76,7 +93,6 @@ volumes:
   redisRegisterServicesKeys:
   redisRegisterServicesUserData:
   redpanda_data2:
+  redisRegisterServicesQueue:
+  redisRegisterServicesQueueFaultTolarance:
 
-networks:
-  default:
-    driver: bridge

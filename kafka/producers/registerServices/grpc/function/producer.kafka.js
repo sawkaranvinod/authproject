@@ -36,14 +36,20 @@ export const services = {
             userData.iv = encryptionData.iv;
             userData.salt = encryptionData.salt;
             userData.publicKey = encryptionData.publicKey;
+            const kafkaData = {
+                userId,
+                email:userData.email,
+                context:"registerServices"
+            }
             const produce = await producer.send(
                 {
                     topic: `${topic}`,
                     partition: Number(partition),
-                    messages: [{ key: "sendOTP", value: JSON.stringify(userData) }],
+                    messages: [{ key: "sendOTP", value: JSON.stringify(kafkaData) }],
                 }
             );
             if (produce) {
+                const cacheData = await redisUserDataCache.set(`userData:${userId}`,JSON.stringify(userData),"EX",300);
                 callback(null, result);
                 return;
             }
@@ -51,14 +57,20 @@ export const services = {
         } catch (error) {
             console.log(error);
             try {
+                const kafkaData = {
+                userId,
+                email:userData.email,
+                context:"registerServices"
+                }
                 const produce = await producer.send(
                     {
                         topic: `${faultTolaranceTopic}`,
                         partition: Number(faultTolarancePartiton),
-                        messages: [{ key: "sendOTP", value: JSON.stringify(userData) }],
+                        messages: [{ key: "sendOTP", value: JSON.stringify(kafkaData) }],
                     }
                 );
                 if (produce) {
+                    const cacheData = await redisUserDataCache.set(`userData:${userId}`,JSON.stringify(userData),"EX",300);
                     callback(null, result);
                     return;
                 }
