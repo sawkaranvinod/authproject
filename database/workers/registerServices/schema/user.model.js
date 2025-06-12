@@ -3,12 +3,16 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
     {
-        hashedUserId:{
+        userId:{
             type:String,
             required:true,
             unique:true,
             trim:true,
-            lowercase:true,
+        },
+        hashedUserId:{
+            type:String,
+            required:true,
+            trim:true,
         },
         hashedPassword:{
             // hashed by using argon2 mechenism because it is best to hashPassword one way hashing
