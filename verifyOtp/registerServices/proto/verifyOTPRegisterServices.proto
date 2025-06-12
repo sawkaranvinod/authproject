@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+
+package verifyOTPRegisterServices;
+
+
+service VerifyOTPRegisterServices {
+    rpc verifyOTP (verifyOTP) returns (verifyOTPAcknowledgement);
+}
+
+
+message verifyOTP {
+    string OTP = 1;
+    string userId = 2;
+}
+
+message verifyOTPAcknowledgement {
+    bool isVerified = 1;
+    string userId = 2;
+    string acknowledgement = 3;
+}

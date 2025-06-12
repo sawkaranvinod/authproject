@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package registerUserDatabase;
+
+service RegisterServicesDatabase {
+    rpc registerUserDatabase (userData) returns (saved);
+}
+
+
+message userData {
+    string userId = 1;
+    string hashedPassword = 2;
+    string hashedName = 3;
+    string hashedEmail = 4;
+    string hashedMotherName = 5;
+    string hashedFatherName = 6;
+    string hashedDOB = 7;
+    string hashedIpAddress = 8;
+    string hashedLongitude = 9;
+    string hashedLatitude = 10;
+    string hashedBrowser = 11;
+    string hashedDeviceName = 12;
+    string hashedMethod = 13;
+    string hashedGender = 14;
+    string hashedTwoFactorAuthentication = 15;
+    string publicKey = 16;
+    string salt = 17;
+    string privateKey = 18;
+    string iv = 19;
+    double n = 20;
+    double p = 21;
+    double r = 22;
+}
+
+message saved {
+    bool isSaved = 1;
+    string message = 2;
+}

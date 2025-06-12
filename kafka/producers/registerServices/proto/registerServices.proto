@@ -12,23 +12,21 @@ message userData {
     string userId = 1;
     string hashedPassword = 2;
     string hashedName = 3;
-    string email = 4;
+    string hashedEmail = 4;
     string hashedMotherName = 5;
     string hashedFatherName = 6;
     string hashedDOB = 7;
     string hashedIpAddress = 8;
-    double longitude = 9;
-    double latitude = 10;
-    string browser = 11;
-    string deviceName = 12;
-    string method = 13;
-    string gender = 14;
-    string twoFactorAuthentication = 15;
-    string dateOfBirth = 16;
+    string hashedLongitude = 9;
+    string hashedLatitude = 10;
+    string hashedBrowser = 11;
+    string hashedDeviceName = 12;
+    string hashedMethod = 13;
+    string hashedGender = 14;
+    string hashedTwoFactorAuthentication = 15;
 }
 
 message registerAcknowledgement {
     string acknowledgement = 1;
     string userId = 2;
 }
-

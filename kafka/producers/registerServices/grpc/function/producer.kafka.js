@@ -28,7 +28,7 @@ export const services = {
                 callback(null, problem);
                 return;
             }
-            encryptionData = JSON.parse(encryptionData);
+            encryptionData = await JSON.parse(encryptionData);
             userData.privateKey = encryptionData.privateKey;
             userData.r = encryptionData.r;
             userData.p = encryptionData.p;
@@ -38,7 +38,6 @@ export const services = {
             userData.publicKey = encryptionData.publicKey;
             const kafkaData = {
                 userId,
-                email:userData.email,
                 context:"registerServices"
             }
             const produce = await producer.send(

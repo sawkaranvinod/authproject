@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package sendInQueue;
+
+service SendInQueue {
+    rpc sendInQueue (sendInQueue) returns (sendInQueueAcknowledgement);
+}
+
+
+message sendInQueue {
+    string userId = 1;
+    string context = 2;
+}
+
+
+message sendInQueueAcknowledgement {
+    bool pushedInQueue = 1;
+}

@@ -11,23 +11,23 @@ const userSignUpDetailSchema = mongoose.Schema(
         hashedCoordinate:{
             type:{
                 longitude:{
-                    type:Number,
+                    type:String,
                     trim:true,
                 },
                 latitude:{
-                    type:Number,
+                    type:String,
                     trim:true,
                 }
             },
             required:true,
         },
-        browser:{
+        hashedBrowser:{
             type:String,
             required:true,
             trim:true,
             lowercase:true,
         },
-        deviceName:{
+        hashedDeviceName:{
             type:String,
             required:true,
             trim:true,

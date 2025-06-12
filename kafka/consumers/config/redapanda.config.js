@@ -3,9 +3,10 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const brokersString = process.env.REDPANDA_BROKERS;
-const brokerPort = process.env.REDPANDA_BROKER_PORT || "9092";
-const clientId = process.env.REDPANDA_CLIENTID || "producerRegister";
+const brokersString = process.env.REDPANDA_CONSUMER_BROKERS;
+const brokerPort = process.env.REDPANDA_CONSUMER_BROKER_PORT || "9092";
+const clientId = process.env.REDPANDA_CONSUMER_CLIENTID || "producerRegister";
+const groupId = process.env.REDPANDA_CONSUMER_GROUPID || "consumers";
 
 function getBroker(brokersString, brokerPort) {
     if (brokersString) {
@@ -28,4 +29,4 @@ const kafka = new Kafka({
     clientId,
 });
 
-export const consumer = kafka.consumer()
+export const consumer = kafka.consumer({groupId:`${groupId}`})

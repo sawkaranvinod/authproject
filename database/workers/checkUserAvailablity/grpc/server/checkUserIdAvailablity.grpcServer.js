@@ -31,6 +31,6 @@ export function startServer() {
             process.exit(1);
         }
         console.log(`server is started at port 0.0.0.0:${checkUserIdServerPort}`);
-        server.start(); // <-- Start the server so clients can connect
+        // server.start(); // <-- Start the server so clients can connect
     });
 }

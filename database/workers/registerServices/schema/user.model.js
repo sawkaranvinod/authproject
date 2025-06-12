@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
     {
-        userId:{
+        hashedUserId:{
             type:String,
             required:true,
             unique:true,
@@ -27,13 +27,6 @@ const userSchema = new mongoose.Schema(
             type: Boolean,
             default: false,
         },
-        multifactorAuthenticationType:{
-            type:String,
-            trim:true,
-            lowercase:true,
-            enum:["phone","email","key","none"],
-            default:"none"
-        },
         userSignUpDetail:{
             type:mongoose.Schema.Types.ObjectId,
             ref:"UserSignUpDetail",
@@ -46,8 +39,6 @@ const userSchema = new mongoose.Schema(
         },
         TypeOfSecurityKey:{
             type: String,
-            default: "none",
-            enum: ['faceId', 'fingerprint', 'securityKey',"none"],
         },
         hashedSecurityKeyDetail:{
             type:mongoose.Schema.Types.ObjectId,
@@ -61,21 +52,17 @@ const userSchema = new mongoose.Schema(
             // hashed using argon2 mechenism one time you can see only this byPasskey
             type:[String],
         },
-        accountBasedOn:{
+        hashedAccountBasedOn:{
             type:String,
             required:true,
-            lowercase:true,
             trim:true,
         },
-        bannedInCountry:{
+        hashedBannedInCountry:{
             type:[String],
             default:[],
         },
         paymentMethod:{
             type:[String],
-            lowercase:true,
-            default:"none",
-            enum:["none","creditCard","debitCard","UpiId"]
         },
         hashedPaymentDetail:{
             type:mongoose.Schema.Types.ObjectId,
@@ -102,7 +89,7 @@ const userSchema = new mongoose.Schema(
             lowercase:true,
             default:[]
         },
-        email:{
+        hashedEmail:{
             type:String,
             required:true,
             unique:true,
